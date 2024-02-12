@@ -5,6 +5,11 @@ namespace ENations.Models
 
     public class ApplicationDbContext : DbContext
     {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+        }
+
         public DbSet<Article> Articles { get; set; }
         public DbSet<Chat> Chats { get; set; }
         public DbSet<Company> Companies { get; set; }
@@ -24,13 +29,13 @@ namespace ENations.Models
         public DbSet<UserMoney> UserMoney { get; set; }
 
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseNpgsql("Host=localhost; Database=enations; Username=postgres; Password=admin");
-            }
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    if (!optionsBuilder.IsConfigured)
+        //    {
+        //        optionsBuilder.UseNpgsql("Host=localhost; Database=enations; Username=postgres; Password=admin");
+        //    }
+        //}
 
     }
 
