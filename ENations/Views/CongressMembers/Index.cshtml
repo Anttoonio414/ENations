@@ -1,0 +1,36 @@
+﻿@model IEnumerable<ENations.Models.CongressMember>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Congress Members
+</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PoliticalParty)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PoliticalParty.PoliticalPartyId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CongressMemberId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CongressMemberId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CongressMemberId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
