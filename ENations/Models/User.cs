@@ -14,6 +14,10 @@ namespace ENations.Models
         public string Password { get; set; }
         public int Level { get; set; }
         public int Xp { get; set; }
+        public int CountryId { get; set; }
+
+        [ForeignKey("CountryId")]
+        public virtual Country Country { get; set; }
 
         public virtual UserMoney UserMoney { get; set; }
 
