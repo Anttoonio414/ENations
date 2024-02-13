@@ -416,9 +416,6 @@ namespace ENations.Migrations
                     b.Property<int?>("ChatId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("CountryId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
@@ -430,7 +427,7 @@ namespace ENations.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("RegionId")
+                    b.Property<int>("RegionId")
                         .HasColumnType("integer");
 
                     b.Property<int>("Strength")
@@ -446,8 +443,6 @@ namespace ENations.Migrations
                     b.HasKey("UserId");
 
                     b.HasIndex("ChatId");
-
-                    b.HasIndex("CountryId");
 
                     b.HasIndex("RegionId");
 
@@ -687,17 +682,13 @@ namespace ENations.Migrations
                         .WithMany("Users")
                         .HasForeignKey("ChatId");
 
-                    b.HasOne("ENations.Models.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId")
+                    b.HasOne("ENations.Models.Region", "Region")
+                        .WithMany("Users")
+                        .HasForeignKey("RegionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ENations.Models.Region", null)
-                        .WithMany("Users")
-                        .HasForeignKey("RegionId");
-
-                    b.Navigation("Country");
+                    b.Navigation("Region");
                 });
 
             modelBuilder.Entity("ENations.Models.UserGyms", b =>
