@@ -28,18 +28,9 @@ namespace ENations.Controllers
         // GET: Articles/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Articles == null)
-            {
-                return NotFound();
-            }
-
             var article = await _context.Articles
                 .Include(a => a.Newspaper)
                 .FirstOrDefaultAsync(m => m.ArticleId == id);
-            if (article == null)
-            {
-                return NotFound();
-            }
 
             return View(article);
         }
@@ -47,95 +38,69 @@ namespace ENations.Controllers
         // GET: Articles/Create
         public IActionResult Create()
         {
-            ViewData["NewspaperId"] = new SelectList(_context.Newspapers, "NewspaperId", "NewspaperId");
+            ViewData["NewspaperId"] = new SelectList(_context.Newspapers, "NewspaperId", "Name");
             return View();
         }
 
         // POST: Articles/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ArticleId,Votes,Views,Category,Text,Title,NewspaperId")] Article article)
+        public async Task<IActionResult> Create([Bind("ArticleId,Votes,Views,Category,Text,Title,NewspaperId")] int Votes, int Views, string Category, string Text, string Title, int NewspaperId)
         {
             if (ModelState.IsValid)
             {
+                var article = new Article();
+                article.Votes = Votes;
+                article.Views = Views;
+                article.Category = Category;
+                article.Text = Text;
+                article.Title = Title;
+                article.NewspaperId = NewspaperId;
                 _context.Add(article);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["NewspaperId"] = new SelectList(_context.Newspapers, "NewspaperId", "NewspaperId", article.NewspaperId);
-            return View(article);
+            return View();
         }
 
         // GET: Articles/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Articles == null)
-            {
-                return NotFound();
-            }
-
             var article = await _context.Articles.FindAsync(id);
-            if (article == null)
-            {
-                return NotFound();
-            }
-            ViewData["NewspaperId"] = new SelectList(_context.Newspapers, "NewspaperId", "NewspaperId", article.NewspaperId);
+
+            ViewData["NewspaperId"] = new SelectList(_context.Newspapers, "NewspaperId", "Name", article.NewspaperId);
             return View(article);
         }
 
         // POST: Articles/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ArticleId,Votes,Views,Category,Text,Title,NewspaperId")] Article article)
+        public async Task<IActionResult> Edit(int id, [Bind("ArticleId,Votes,Views,Category,Text,Title,NewspaperId")] int Votes, int Views, string Category, string Text, string Title, int NewspaperId)
         {
-            if (id != article.ArticleId)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(article);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ArticleExists(article.ArticleId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                var article = await _context.Articles.FirstOrDefaultAsync(m => m.ArticleId == id);
+                article.Votes = Votes;
+                article.Views = Views;
+                article.Category = Category;
+                article.Text = Text;
+                article.Title = Title;
+                article.NewspaperId = NewspaperId;
+                _context.Update(article);
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["NewspaperId"] = new SelectList(_context.Newspapers, "NewspaperId", "NewspaperId", article.NewspaperId);
-            return View(article);
+            return View();
         }
 
         // GET: Articles/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Articles == null)
-            {
-                return NotFound();
-            }
 
             var article = await _context.Articles
                 .Include(a => a.Newspaper)
                 .FirstOrDefaultAsync(m => m.ArticleId == id);
-            if (article == null)
-            {
-                return NotFound();
-            }
 
             return View(article);
         }
@@ -145,23 +110,19 @@ namespace ENations.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Articles == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.Articles'  is null.");
-            }
             var article = await _context.Articles.FindAsync(id);
             if (article != null)
             {
                 _context.Articles.Remove(article);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ArticleExists(int id)
         {
-          return (_context.Articles?.Any(e => e.ArticleId == id)).GetValueOrDefault();
+            return (_context.Articles?.Any(e => e.ArticleId == id)).GetValueOrDefault();
         }
     }
 }
