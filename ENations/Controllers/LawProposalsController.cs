@@ -62,7 +62,9 @@ namespace ENations.Controllers
                 lawProposal.Reason = Reason;
                 lawProposal.Amount = Amount;
                 lawProposal.Yes = Yes;
+                lawProposal.No = No;
                 lawProposal.Finished = Finished;
+                lawProposal.CongressMemberId = CongressMemberId;
                 _context.Add(lawProposal);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -105,7 +107,9 @@ namespace ENations.Controllers
                 lawProposal.Reason = Reason;
                 lawProposal.Amount = Amount;
                 lawProposal.Yes = Yes;
+                lawProposal.No = No;
                 lawProposal.Finished = Finished;
+                lawProposal.CongressMemberId = CongressMemberId;
                 _context.Update(lawProposal);
 
                 return RedirectToAction(nameof(Index));

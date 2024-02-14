@@ -57,7 +57,7 @@ namespace ENations.Controllers
                 var company = new Company();
                 company.Type = Type;
                 company.Quality = Quality;
-                company.LastWorked = LastWorked;
+                company.LastWorked = LastWorked.ToUniversalTime();
                 _context.Add(company);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -92,7 +92,7 @@ namespace ENations.Controllers
                     .FirstOrDefaultAsync(m => m.CompanyId == id);
                 company.Type = Type;
                 company.Quality = Quality;
-                company.LastWorked = LastWorked;
+                company.LastWorked = LastWorked.ToUniversalTime();
                 _context.Update(company);
                 await _context.SaveChangesAsync();
 
