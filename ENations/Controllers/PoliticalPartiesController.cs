@@ -43,7 +43,7 @@ namespace ENations.Controllers
         // GET: PoliticalParties/Create
         public IActionResult Create()
         {
-            ViewData["CountryId"] = new SelectList(_context.Countries, "CountryId", "CountryId");
+            ViewData["CountryId"] = new SelectList(_context.Countries, "CountryId", "Name");
             return View();
         }
 
@@ -81,7 +81,7 @@ namespace ENations.Controllers
             {
                 return NotFound();
             }
-            ViewData["CountryId"] = new SelectList(_context.Countries, "CountryId", "CountryId", politicalParty.CountryId);
+            ViewData["CountryId"] = new SelectList(_context.Countries, "CountryId", "Name", politicalParty.CountryId);
             return View(politicalParty);
         }
 

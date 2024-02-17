@@ -44,8 +44,8 @@ namespace ENations.Controllers
         // GET: PartyMembers/Create
         public IActionResult Create()
         {
-            ViewData["PoliticalPartyId"] = new SelectList(_context.PoliticalParties, "PoliticalPartyId", "PoliticalPartyId");
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId");
+            ViewData["PoliticalPartyId"] = new SelectList(_context.PoliticalParties, "PoliticalPartyId", "Name");
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username");
             return View();
         }
 
@@ -84,8 +84,8 @@ namespace ENations.Controllers
             {
                 return NotFound();
             }
-            ViewData["PoliticalPartyId"] = new SelectList(_context.PoliticalParties, "PoliticalPartyId", "PoliticalPartyId", partyMember.PoliticalPartyId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", partyMember.UserId);
+            ViewData["PoliticalPartyId"] = new SelectList(_context.PoliticalParties, "PoliticalPartyId", "Name", partyMember.PoliticalPartyId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username", partyMember.UserId);
             return View(partyMember);
         }
 

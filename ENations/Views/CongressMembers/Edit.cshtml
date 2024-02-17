@@ -14,7 +14,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="CongressMemberId" />
             <div class="form-group">
-                <label asp-for="PoliticalPartyId" class="control-label"></label>
+                <label asp-for="PoliticalPartyId" class="control-label">Political Party Name</label>
                 <select asp-for="PoliticalPartyId" class="form-control" asp-items="ViewBag.PoliticalPartyId"></select>
                 <span asp-validation-for="PoliticalPartyId" class="text-danger"></span>
             </div>
