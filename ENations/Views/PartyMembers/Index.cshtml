@@ -16,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.Level)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PoliticalParty)
+                Political Party
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.User)
@@ -31,10 +31,10 @@
                 @Html.DisplayFor(modelItem => item.Level)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PoliticalParty.PoliticalPartyId)
+                @Html.DisplayFor(modelItem => item.PoliticalParty.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.UserId)
+                @Html.DisplayFor(modelItem => item.User.Username)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.PartyMemberId">Edit</a> |

@@ -43,13 +43,11 @@ namespace ENations.Controllers
         // GET: CongressMembers/Create
         public IActionResult Create()
         {
-            ViewData["PoliticalPartyId"] = new SelectList(_context.PoliticalParties, "PoliticalPartyId", "PoliticalPartyId");
+            ViewData["PoliticalPartyId"] = new SelectList(_context.PoliticalParties, "PoliticalPartyId", "Name");
             return View();
         }
 
         // POST: CongressMembers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CongressMemberId,PoliticalPartyId")] int PoliticalPartyId)
@@ -69,16 +67,8 @@ namespace ENations.Controllers
         // GET: CongressMembers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.CongressMembers == null)
-            {
-                return NotFound();
-            }
-
             var congressMember = await _context.CongressMembers.FindAsync(id);
-            if (congressMember == null)
-            {
-                return NotFound();
-            }
+
             ViewData["PoliticalPartyId"] = new SelectList(_context.PoliticalParties, "PoliticalPartyId", "PoliticalPartyId", congressMember.PoliticalPartyId);
             return View(congressMember);
         }
