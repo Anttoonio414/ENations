@@ -12,57 +12,70 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ENations</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                <a class="navbar-brand" href="#">ENations</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <!-- Dropdown for Geographic Entities -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="geoEntitiesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Geographic Entities
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="geoEntitiesDropdown">
+                                <li><a class="dropdown-item" href="/Countries/Index">Countries</a></li>
+                                <li><a class="dropdown-item" href="/Regions/Index">Regions</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Countries" asp-action="Index">Countries</a>
+
+                        <!-- Dropdown for Political and Legislative -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="politicalLegislativeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Political and Legislative
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="politicalLegislativeDropdown">
+                                <li><a class="dropdown-item" href="/CongressMembers/Index">Congress Members</a></li>
+                                <li><a class="dropdown-item" href="/LawProposals/Index">Law Proposal</a></li>
+                                <li><a class="dropdown-item" href="/PartyMembers/Index">Party Members</a></li>
+                                <li><a class="dropdown-item" href="/PoliticalParties/Index">Political Parties</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Articles" asp-action="Index">Articles</a>
+
+                        <!-- Dropdown for Media and Communication -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="mediaCommunicationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Media and Communication
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="mediaCommunicationDropdown">
+                                <li><a class="dropdown-item" href="/Articles/Index">Articles</a></li>
+                                <li><a class="dropdown-item" href="/Newspapers/Index">Newspapers</a></li>
+                                <li><a class="dropdown-item" href="/Chats/Index">Chats</a></li>
+                                <li><a class="dropdown-item" href="/Messages/Index">Messages</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Regions" asp-action="Index">Regions</a>
+
+                        <!-- Dropdown for Business and Finance -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="businessFinanceDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Business and Finance
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="businessFinanceDropdown">
+                                <li><a class="dropdown-item" href="/Companies/Index">Companies</a></li>
+                                <li><a class="dropdown-item" href="/CountryFunds/Index">Country Funds</a></li>
+                                <li><a class="dropdown-item" href="/ItemOffers/Index">Item Offers</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Companies" asp-action="Index">Companies</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="CongressMembers" asp-action="Index">Congress Members</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="CountryFunds" asp-action="Index">Country Funds</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ItemOffers" asp-action="Index">Item Offers</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Newspapers" asp-action="Index">Newspapers</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Chats" asp-action="Index">Chats</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="LawProposals" asp-action="Index">Law Proposal</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Messages" asp-action="Index">Messages</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="PartyMembers" asp-action="Index">Party Members</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="PoliticalParties" asp-action="Index">Political Parties</a>
+
+                        <!-- Dropdown for Individuals and User Engagement -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userEngagementDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Individuals and User Engagement
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="userEngagementDropdown">
+                                <li><a class="dropdown-item" href="/Users/Index">Users</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
