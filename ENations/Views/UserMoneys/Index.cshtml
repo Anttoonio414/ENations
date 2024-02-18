@@ -1,10 +1,10 @@
-﻿@model IEnumerable<ENations.Models.UserGyms>
+﻿@model IEnumerable<ENations.Models.UserMoney>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>User Gyms</h1>
+<h1>User Money</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -12,6 +12,12 @@
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Gold)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Currency)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.User)
             </th>
@@ -21,6 +27,12 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gold)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Currency)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.User.Username)
             </td>

@@ -45,7 +45,7 @@ namespace ENations.Controllers
         public IActionResult Create()
         {
             ViewData["ChatId"] = new SelectList(_context.Chats, "ChatId", "ChatId");
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId");
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username");
             return View();
         }
 
@@ -85,7 +85,7 @@ namespace ENations.Controllers
                 return NotFound();
             }
             ViewData["ChatId"] = new SelectList(_context.Chats, "ChatId", "ChatId", message.ChatId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", message.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username", message.UserId);
             return View(message);
         }
 

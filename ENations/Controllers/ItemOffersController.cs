@@ -44,8 +44,8 @@ namespace ENations.Controllers
         // GET: ItemOffers/Create
         public IActionResult Create()
         {
-            ViewData["CountryId"] = new SelectList(_context.Countries, "CountryId", "CountryId");
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId");
+            ViewData["CountryId"] = new SelectList(_context.Countries, "CountryId", "Name");
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username");
             return View();
         }
 
@@ -87,8 +87,8 @@ namespace ENations.Controllers
             {
                 return NotFound();
             }
-            ViewData["CountryId"] = new SelectList(_context.Countries, "CountryId", "CountryId", itemOffers.CountryId);
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", itemOffers.UserId);
+            ViewData["CountryId"] = new SelectList(_context.Countries, "CountryId", "Name", itemOffers.CountryId);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username", itemOffers.UserId);
             return View(itemOffers);
         }
 

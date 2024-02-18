@@ -5,147 +5,150 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ENations.Controllers
 {
-    public class UserGymsController : Controller
+    public class UserMoneysController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public UserGymsController(ApplicationDbContext context)
+        public UserMoneysController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: UserGyms
+        // GET: UserMoneys
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.UserGyms.Include(u => u.User);
+            var applicationDbContext = _context.UserMoney.Include(u => u.User);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: UserGyms/Details/5
+        // GET: UserMoneys/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.UserGyms == null)
+            if (id == null || _context.UserMoney == null)
             {
                 return NotFound();
             }
 
-            var userGyms = await _context.UserGyms
+            var userMoney = await _context.UserMoney
                 .Include(u => u.User)
                 .FirstOrDefaultAsync(m => m.UserId == id);
-            if (userGyms == null)
+            if (userMoney == null)
             {
                 return NotFound();
             }
 
-            return View(userGyms);
+            return View(userMoney);
         }
 
-        // GET: UserGyms/Create
+        // GET: UserMoneys/Create
         public IActionResult Create()
         {
             ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username");
             return View();
         }
 
-        // POST: UserGyms/Create
+        // POST: UserMoneys/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId")] int UserId)
+        public async Task<IActionResult> Create([Bind("UserId,Gold,Currency")] int UserId, decimal Gold, string Currency)
         {
             if (ModelState.IsValid)
             {
-                var userGyms = new UserGyms();
-                userGyms.UserId = UserId;
-                _context.Add(userGyms);
+                var userMoney = new UserMoney();
+                userMoney.UserId = UserId;
+                userMoney.Gold = Gold;
+                userMoney.Currency = Currency;
+                _context.Add(userMoney);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", userGyms.UserId);
+            //ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", userMoney.UserId);
             return View();
         }
 
-        // GET: UserGyms/Edit/5
+        // GET: UserMoneys/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.UserGyms == null)
+            if (id == null || _context.UserMoney == null)
             {
                 return NotFound();
             }
 
-            var userGyms = await _context.UserGyms.FindAsync(id);
-            if (userGyms == null)
+            var userMoney = await _context.UserMoney.FindAsync(id);
+            if (userMoney == null)
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username", userGyms.UserId);
-            return View(userGyms);
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username", userMoney.UserId);
+            return View(userMoney);
         }
 
-        // POST: UserGyms/Edit/5
+        // POST: UserMoneys/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserId")] int UserId)
+        public async Task<IActionResult> Edit(int id, [Bind("UserId,Gold,Currency")] int UserId, decimal Gold, string Currency)
         {
-
 
             if (ModelState.IsValid)
             {
-                var userGyms = await _context.UserGyms.FirstOrDefaultAsync(m => m.UserId == id);
-                userGyms.UserId = UserId;
-                _context.Update(userGyms);
+                var userMoney = await _context.UserMoney.FirstOrDefaultAsync(m => m.UserId == id);
+                userMoney.UserId = UserId;
+                userMoney.Gold = Gold;
+                userMoney.Currency = Currency;
+                _context.Update(userMoney);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", userGyms.UserId);
+            //ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserId", userMoney.UserId);
             return View();
         }
 
-        // GET: UserGyms/Delete/5
+        // GET: UserMoneys/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.UserGyms == null)
+            if (id == null || _context.UserMoney == null)
             {
                 return NotFound();
             }
 
-            var userGyms = await _context.UserGyms
+            var userMoney = await _context.UserMoney
                 .Include(u => u.User)
                 .FirstOrDefaultAsync(m => m.UserId == id);
-            if (userGyms == null)
+            if (userMoney == null)
             {
                 return NotFound();
             }
 
-            return View(userGyms);
+            return View(userMoney);
         }
 
-        // POST: UserGyms/Delete/5
+        // POST: UserMoneys/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.UserGyms == null)
+            if (_context.UserMoney == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.UserGyms'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.UserMoney'  is null.");
             }
-            var userGyms = await _context.UserGyms.FindAsync(id);
-            if (userGyms != null)
+            var userMoney = await _context.UserMoney.FindAsync(id);
+            if (userMoney != null)
             {
-                _context.UserGyms.Remove(userGyms);
+                _context.UserMoney.Remove(userMoney);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UserGymsExists(int id)
+        private bool UserMoneyExists(int id)
         {
-            return (_context.UserGyms?.Any(e => e.UserId == id)).GetValueOrDefault();
+            return (_context.UserMoney?.Any(e => e.UserId == id)).GetValueOrDefault();
         }
     }
 }
