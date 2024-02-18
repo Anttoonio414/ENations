@@ -7,7 +7,7 @@
 <h1>Law Proposal</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -67,9 +67,9 @@
                 @Html.DisplayFor(modelItem => item.CongressMember.CongressMemberId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.LawProposalId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.LawProposalId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.LawProposalId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.LawProposalId" class="btn btn-warning">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.LawProposalId" class="btn btn-info">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.LawProposalId" class="btn btn-danger">Delete</a>
             </td>
         </tr>
 }

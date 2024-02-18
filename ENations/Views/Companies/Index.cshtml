@@ -7,7 +7,7 @@
 <h1>Companies</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -34,12 +34,12 @@
                 @Html.DisplayFor(modelItem => item.Quality)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LastWorked)
-            </td>
+                    @item.LastWorked.ToString("yyyy-MM-dd")
+                </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.CompanyId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CompanyId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CompanyId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.CompanyId" class="btn btn-warning">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.CompanyId" class="btn btn-info">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.CompanyId" class="btn btn-danger">Delete</a>
             </td>
         </tr>
 }

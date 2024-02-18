@@ -6,7 +6,7 @@
 
 <h1>Create</h1>
 
-<h4>UserItems</h4>
+<h4>User Item</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -18,8 +18,13 @@
                 <span asp-validation-for="Item" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Quality" class="control-label"></label>
-                <input asp-for="Quality" class="form-control" />
+                <label asp-for="Quality" class="control-label">Quality</label>
+                <select asp-for="Quality" class="form-control">
+                    @for (int i = 1; i <= 10; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
                 <span asp-validation-for="Quality" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -39,7 +44,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
 
 @section Scripts {

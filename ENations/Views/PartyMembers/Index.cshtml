@@ -7,7 +7,7 @@
 <h1>Party Members</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -37,9 +37,9 @@
                 @Html.DisplayFor(modelItem => item.User.Username)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.PartyMemberId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PartyMemberId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PartyMemberId">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.PartyMemberId" class="btn btn-warning">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.PartyMemberId" class="btn btn-info">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.PartyMemberId" class="btn btn-danger">Delete</a>
             </td>
         </tr>
 }

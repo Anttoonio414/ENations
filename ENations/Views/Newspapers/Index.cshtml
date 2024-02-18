@@ -7,7 +7,7 @@
 <h1>Newspapers</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -37,9 +37,9 @@
                 @Html.DisplayFor(modelItem => item.Founder.Username)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.NewspaperId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.NewspaperId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.NewspaperId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.NewspaperId" class="btn btn-warning">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.NewspaperId" class="btn btn-info">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.NewspaperId" class="btn btn-danger">Delete</a>
             </td>
         </tr>
 }
