@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ENations.Models
 {
@@ -18,5 +18,7 @@ namespace ENations.Models
 
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
+
+        public virtual CongressMember CongressMember { get; set; }
     }
 }

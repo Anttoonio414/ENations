@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ENations.Models
 {
@@ -10,8 +10,9 @@ namespace ENations.Models
 
         public virtual ICollection<LawProposal> LawProposals { get; set; }
 
-        public int PoliticalPartyId { get; set; }
-        [ForeignKey("PoliticalPartyId")]
-        public virtual PoliticalParty PoliticalParty { get; set; }
+        public int PartyMemberId { get; set; }
+
+        [ForeignKey("PartyMemberId")]
+        public virtual PartyMember PartyMember { get; set; }
     }
 }

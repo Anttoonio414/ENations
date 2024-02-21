@@ -17,7 +17,10 @@ namespace ENations.Controllers
         // GET: LawProposals
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.LawProposals.Include(l => l.CongressMember);
+            var applicationDbContext = _context.LawProposals
+                .Include(l => l.CongressMember)
+                .ThenInclude(cm => cm.PartyMember)
+                .ThenInclude(pm => pm.User);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -31,7 +34,10 @@ namespace ENations.Controllers
 
             var lawProposal = await _context.LawProposals
                 .Include(l => l.CongressMember)
+                    .ThenInclude(cm => cm.PartyMember)
+                        .ThenInclude(pm => pm.User) 
                 .FirstOrDefaultAsync(m => m.LawProposalId == id);
+
             if (lawProposal == null)
             {
                 return NotFound();
@@ -40,12 +46,17 @@ namespace ENations.Controllers
             return View(lawProposal);
         }
 
+
         // GET: LawProposals/Create
         public IActionResult Create()
         {
-            ViewData["CongressMemberId"] = new SelectList(_context.CongressMembers, "CongressMemberId", "CongressMemberId");
+            ViewData["CongressMemberId"] = new SelectList(_context.CongressMembers
+                .Include(cm => cm.PartyMember)
+                .ThenInclude(pm => pm.User)
+                .Select(x => new { CongressMemberId = x.CongressMemberId, Username = x.PartyMember.User.Username }), "CongressMemberId", "Username");
             return View();
         }
+
 
         // POST: LawProposals/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -86,7 +97,10 @@ namespace ENations.Controllers
             {
                 return NotFound();
             }
-            ViewData["CongressMemberId"] = new SelectList(_context.CongressMembers, "CongressMemberId", "CongressMemberId", lawProposal.CongressMemberId);
+            ViewData["CongressMemberId"] = new SelectList(_context.CongressMembers
+                .Include(cm => cm.PartyMember)
+                .ThenInclude(pm => pm.User)
+                .Select(x => new { CongressMemberId = x.CongressMemberId, Username = $"{x.PartyMember.User.Username} ({x.CongressMemberId})" }), "CongressMemberId", "Username", lawProposal.CongressMemberId);
             return View(lawProposal);
         }
 
@@ -97,8 +111,6 @@ namespace ENations.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("LawProposalId,ExpectedVotes,Type,Reason,Amount,Yes,No,Finished,CongressMemberId")] int ExpectedVotes, string Type, string Reason, decimal Amount, bool Yes, bool No, bool Finished, int CongressMemberId)
         {
-
-
             if (ModelState.IsValid)
             {
                 var lawProposal = await _context.LawProposals.FirstOrDefaultAsync(m => m.LawProposalId == id);
@@ -111,6 +123,7 @@ namespace ENations.Controllers
                 lawProposal.Finished = Finished;
                 lawProposal.CongressMemberId = CongressMemberId;
                 _context.Update(lawProposal);
+                await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
             }
@@ -128,7 +141,10 @@ namespace ENations.Controllers
 
             var lawProposal = await _context.LawProposals
                 .Include(l => l.CongressMember)
+                    .ThenInclude(cm => cm.PartyMember)
+                        .ThenInclude(pm => pm.User)
                 .FirstOrDefaultAsync(m => m.LawProposalId == id);
+
             if (lawProposal == null)
             {
                 return NotFound();
@@ -136,6 +152,7 @@ namespace ENations.Controllers
 
             return View(lawProposal);
         }
+
 
         // POST: LawProposals/Delete/5
         [HttpPost, ActionName("Delete")]

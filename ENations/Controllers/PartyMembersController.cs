@@ -24,19 +24,10 @@ namespace ENations.Controllers
         // GET: PartyMembers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.PartyMembers == null)
-            {
-                return NotFound();
-            }
-
             var partyMember = await _context.PartyMembers
                 .Include(p => p.PoliticalParty)
                 .Include(p => p.User)
                 .FirstOrDefaultAsync(m => m.PartyMemberId == id);
-            if (partyMember == null)
-            {
-                return NotFound();
-            }
 
             return View(partyMember);
         }
@@ -50,8 +41,6 @@ namespace ENations.Controllers
         }
 
         // POST: PartyMembers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PartyMemberId,Level,PoliticalPartyId,UserId")] int Level, int PoliticalPartyId, int UserId)
@@ -74,24 +63,15 @@ namespace ENations.Controllers
         // GET: PartyMembers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.PartyMembers == null)
-            {
-                return NotFound();
-            }
 
             var partyMember = await _context.PartyMembers.FindAsync(id);
-            if (partyMember == null)
-            {
-                return NotFound();
-            }
+
             ViewData["PoliticalPartyId"] = new SelectList(_context.PoliticalParties, "PoliticalPartyId", "Name", partyMember.PoliticalPartyId);
             ViewData["UserId"] = new SelectList(_context.Users, "UserId", "Username", partyMember.UserId);
             return View(partyMember);
         }
 
         // POST: PartyMembers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("PartyMemberId,Level,PoliticalPartyId,UserId")] int Level, int PoliticalPartyId, int UserId)
@@ -116,19 +96,10 @@ namespace ENations.Controllers
         // GET: PartyMembers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.PartyMembers == null)
-            {
-                return NotFound();
-            }
-
             var partyMember = await _context.PartyMembers
                 .Include(p => p.PoliticalParty)
                 .Include(p => p.User)
                 .FirstOrDefaultAsync(m => m.PartyMemberId == id);
-            if (partyMember == null)
-            {
-                return NotFound();
-            }
 
             return View(partyMember);
         }
@@ -138,10 +109,6 @@ namespace ENations.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.PartyMembers == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.PartyMembers'  is null.");
-            }
             var partyMember = await _context.PartyMembers.FindAsync(id);
             if (partyMember != null)
             {

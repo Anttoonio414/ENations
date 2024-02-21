@@ -1,7 +1,11 @@
-﻿using ENations.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ENations.Models;
 
 namespace ENations.Controllers
 {
@@ -17,80 +21,40 @@ namespace ENations.Controllers
         // GET: CongressMembers
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.CongressMembers.Include(c => c.PoliticalParty);
+            var applicationDbContext = _context.CongressMembers
+                .Include(c => c.PartyMember)
+                    .ThenInclude(p => p.User)
+                .Include(c => c.PartyMember)
+                    .ThenInclude(p => p.PoliticalParty); 
             return View(await applicationDbContext.ToListAsync());
-        }
-
-        // GET: CongressMembers/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.CongressMembers == null)
-            {
-                return NotFound();
-            }
-
-            var congressMember = await _context.CongressMembers
-                .Include(c => c.PoliticalParty)
-                .FirstOrDefaultAsync(m => m.CongressMemberId == id);
-            if (congressMember == null)
-            {
-                return NotFound();
-            }
-
-            return View(congressMember);
         }
 
         // GET: CongressMembers/Create
         public IActionResult Create()
         {
-            ViewData["PoliticalPartyId"] = new SelectList(_context.PoliticalParties, "PoliticalPartyId", "Name");
+            var partyMembers = _context.PartyMembers.Include(p => p.User).Select(pm => new
+            {
+                PartyMemberId = pm.PartyMemberId,
+                Username = pm.User.Username
+            }).ToList();
+
+            ViewData["PartyMemberId"] = new SelectList(partyMembers, "PartyMemberId", "Username");
             return View();
         }
 
         // POST: CongressMembers/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CongressMemberId,PoliticalPartyId")] int PoliticalPartyId)
+        public async Task<IActionResult> Create([Bind("CongressMemberId,PartyMemberId")] int PartyMemberId)
         {
             if (ModelState.IsValid)
             {
                 var congressMember = new CongressMember();
-                congressMember.PoliticalPartyId = PoliticalPartyId;
+                congressMember.PartyMemberId = PartyMemberId;
                 _context.Add(congressMember);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["PoliticalPartyId"] = new SelectList(_context.PoliticalParties, "PoliticalPartyId", "PoliticalPartyId", congressMember.PoliticalPartyId);
-            return View();
-        }
-
-        // GET: CongressMembers/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            var congressMember = await _context.CongressMembers.FindAsync(id);
-
-            ViewData["PoliticalPartyId"] = new SelectList(_context.PoliticalParties, "PoliticalPartyId", "Name", congressMember.PoliticalPartyId);
-            return View(congressMember);
-        }
-
-        // POST: CongressMembers/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CongressMemberId,PoliticalPartyId")] int PoliticalPartyId)
-        {
-
-
-            if (ModelState.IsValid)
-            {
-                var congressMember = await _context.CongressMembers
-                    .FirstOrDefaultAsync(m => m.CongressMemberId == id);
-                congressMember.PoliticalPartyId = PoliticalPartyId;
-                _context.Update(congressMember);
-                await _context.SaveChangesAsync();
-
-                return RedirectToAction(nameof(Index));
-            }
-            //ViewData["PoliticalPartyId"] = new SelectList(_context.PoliticalParties, "PoliticalPartyId", "PoliticalPartyId", congressMember.PoliticalPartyId);
             return View();
         }
 
@@ -103,7 +67,8 @@ namespace ENations.Controllers
             }
 
             var congressMember = await _context.CongressMembers
-                .Include(c => c.PoliticalParty)
+                .Include(c => c.PartyMember)
+                .ThenInclude(p => p.User)
                 .FirstOrDefaultAsync(m => m.CongressMemberId == id);
             if (congressMember == null)
             {

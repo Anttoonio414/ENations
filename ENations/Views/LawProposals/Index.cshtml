@@ -40,38 +40,39 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExpectedVotes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reason)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Yes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.No)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Finished)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CongressMember.CongressMemberId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.LawProposalId" class="btn btn-warning">Edit</a> |
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpectedVotes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reason)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Yes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.No)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Finished)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CongressMember.PartyMember.User.Username)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.LawProposalId" class="btn btn-warning">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.LawProposalId" class="btn btn-info">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.LawProposalId" class="btn btn-danger">Delete</a>
-            </td>
-        </tr>
-}
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -45,17 +45,17 @@ namespace ENations.Controllers
         // POST: Users/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId,Strength,Username,Email,Password,Level,Xp,RegionId")] int Strength, string Username, string Email, string Password, int Level, int Xp, int RegionId)
+        public async Task<IActionResult> Create([Bind("UserId,Strength,Username,Email,Password,Level,Xp,RegionId")] string Username, string Email, string Password, int RegionId)
         {
             if (ModelState.IsValid)
             {
                 var user = new User();
-                user.Strength = Strength;
+                user.Strength = 1;
                 user.Username = Username;
                 user.Email = Email;
                 user.Password = Password;
-                user.Level = Level;
-                user.Xp = Xp;
+                user.Level = 1;
+                user.Xp = 1;
                 user.RegionId = RegionId;
                 _context.Add(user);
                 await _context.SaveChangesAsync();
