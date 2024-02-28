@@ -14,17 +14,37 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="CompanyId" />
             <div class="form-group">
-                <label asp-for="Type" class="control-label"></label>
-                <input asp-for="Type" class="form-control" />
+                <label asp-for="Type" class="control-label">Company Type</label>
+                <select asp-for="Type" class="form-control">
+                    <option value="Iron">Iron</option>
+                    <option value="Grain">Grain</option>
+                    <option value="Oil">Oil</option>
+                    <option value="Stone">Stone</option>
+                    <option value="Wood">Wood</option>
+                    <option value="Diamonds">Diamonds</option>
+                    <option value="Weapon">Weapon</option>
+                    <option value="House">House</option>
+                    <option value="Gift">Gift</option>
+                    <option value="Food">Food</option>
+                    <option value="Ticket">Ticket</option>
+                    <option value="Defense System">Defense System</option>
+                    <option value="Hospital">Hospital</option>
+                    <option value="Estate">Estate</option>
+                </select>
                 <span asp-validation-for="Type" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Quality" class="control-label"></label>
-                <input asp-for="Quality" class="form-control" />
+                <label asp-for="Quality" class="control-label">Quality</label>
+                <select asp-for="Quality" class="form-control">
+                    @for (int i = 1; i <= 5; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
                 <span asp-validation-for="Quality" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LastWorked" class="control-label"></label>
+                <label asp-for="LastWorked" class="control-label">Last Worked</label>
                 <input asp-for="LastWorked" class="form-control" />
                 <span asp-validation-for="LastWorked" class="text-danger"></span>
             </div>

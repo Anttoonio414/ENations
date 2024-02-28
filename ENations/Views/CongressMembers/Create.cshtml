@@ -6,14 +6,14 @@
 
 <h1>Create</h1>
 
-<h4>CongressMember</h4>
+<h4>Congress Member</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="PartyMemberId" class="control-label"></label>
+                <label asp-for="PartyMemberId" class="control-label">Party Member</label>
                 <select asp-for="PartyMemberId" class ="form-control" asp-items="ViewBag.PartyMemberId"></select>
             </div>
             <div class="form-group">
@@ -24,7 +24,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
 
 @section Scripts {

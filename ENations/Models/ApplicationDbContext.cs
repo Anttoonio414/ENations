@@ -28,15 +28,6 @@ namespace ENations.Models
         public DbSet<UserItems> UserItems { get; set; }
         public DbSet<UserMoney> UserMoney { get; set; }
 
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    if (!optionsBuilder.IsConfigured)
-        //    {
-        //        optionsBuilder.UseNpgsql("Host=localhost; Database=enations; Username=postgres; Password=admin");
-        //    }
-        //}
-
     }
 
 }

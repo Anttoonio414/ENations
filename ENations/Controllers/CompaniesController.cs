@@ -50,14 +50,14 @@ namespace ENations.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CompanyId,Type,Quality,LastWorked")] string Type, int Quality, DateTime LastWorked)
+        public async Task<IActionResult> Create([Bind("CompanyId,Type,Quality,LastWorked")] string Type, int Quality)
         {
             if (ModelState.IsValid)
             {
                 var company = new Company();
                 company.Type = Type;
                 company.Quality = Quality;
-                company.LastWorked = LastWorked.ToUniversalTime();
+                company.LastWorked = DateTime.Now.ToUniversalTime();
                 _context.Add(company);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

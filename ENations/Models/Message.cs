@@ -8,6 +8,9 @@ namespace ENations.Models
     {
         [Key]
         public int MessageId { get; set; }
+
+        public string Content { get; set; }
+
         public int Likes { get; set; }
 
         public int ChatId { get; set; }
@@ -15,7 +18,10 @@ namespace ENations.Models
         public virtual Chat Chat { get; set; }
 
         public int UserId { get; set; }
+
         [ForeignKey("UserId")]
         public virtual User Sender { get; set; }
+
     }
+
 }

@@ -1,0 +1,44 @@
+﻿@model ENations.Models.ViewModels.CompanyOwnerAssignmentViewModel
+
+<h2>Companies and Owners</h2>
+
+<form asp-action="AddOwner">
+    <div>
+        <label for="SelectedCompanyId">Company ID:</label>
+        <select asp-for="SelectedCompanyId" asp-items="Model.AllCompanies"></select>
+    </div>
+    <div>
+        <label for="SelectedUserId">Username:</label>
+        <select asp-for="SelectedUserId" asp-items="Model.AllUsers"></select>
+    </div>
+    <button type="submit">Add Owner</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Company ID</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var company in Model.CompaniesWithOwners)
+        {
+            foreach (var owner in company.Owners)
+            {
+                <tr>
+                    <td>@owner.Username</td>
+                    <td>@company.CompanyId</td>
+                    <td>
+                        <form asp-action="DeleteOwner" method="post">
+                            <input type="hidden" name="companyId" value="@company.CompanyId" />
+                            <input type="hidden" name="userId" value="@owner.UserId" />
+                            <button type="submit" onclick="return confirm('Are you sure you want to delete this owner?');">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

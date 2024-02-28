@@ -25,12 +25,20 @@
             </div>
             <div class="form-group">
                 <label asp-for="Category" class="control-label"></label>
-                <input asp-for="Category" class="form-control" />
+                <select asp-for="Category" class="form-control">
+                    <option value="Political">Political</option>
+                    <option value="Military">Military</option>
+                    <option value="Statistics">Statistics</option>
+                    <option value="Event related">Event related</option>
+                    <option value="Fun">Fun</option>
+                    <option value="Economical">Economical</option>
+                    <option value="Trade">Trade</option>
+                </select>
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Text" class="control-label"></label>
-                <input asp-for="Text" class="form-control" />
+                <textarea asp-for="Text" class="form-control" rows="4" cols="50"></textarea>
                 <span asp-validation-for="Text" class="text-danger"></span>
             </div>
             <div class="form-group">

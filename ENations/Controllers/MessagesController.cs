@@ -54,7 +54,7 @@ namespace ENations.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MessageId,Likes,ChatId,UserId")] int Likes, int ChatId, int UserId)
+        public async Task<IActionResult> Create([Bind("MessageId,Content,Likes,ChatId,UserId")] string Content, int Likes, int ChatId, int UserId)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +62,7 @@ namespace ENations.Controllers
                 message.ChatId = ChatId;
                 message.UserId = UserId;
                 message.Likes = Likes;
+                message.Content = Content;
                 _context.Add(message);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -94,7 +95,7 @@ namespace ENations.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MessageId,Likes,ChatId,UserId")] int Likes, int ChatId, int UserId)
+        public async Task<IActionResult> Edit(int id, [Bind("MessageId,Content,Likes,ChatId,UserId")] string Content, int Likes, int ChatId, int UserId)
         {
 
             if (ModelState.IsValid)
@@ -103,6 +104,7 @@ namespace ENations.Controllers
                 message.ChatId = ChatId;
                 message.UserId = UserId;
                 message.Likes = Likes;
+                message.Content = Content;
                 _context.Update(message);
                 await _context.SaveChangesAsync();
 
